@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import UserContent from "../components/UserContent";
 
-const User = () => {
+const Profile = () => {
   return (
     <div>
       <Header />
@@ -13,4 +13,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Profile;
