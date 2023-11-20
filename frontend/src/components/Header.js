@@ -9,14 +9,12 @@ import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 
 const Header = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.token != null);
 
   const handleLogout = () => {
     Cookies.remove("token");
     dispatch(logout());
-    navigate("/home");
   };
 
   return (
