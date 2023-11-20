@@ -36,7 +36,7 @@ const SignInContent = () => {
       );
       dispatch(loginSuccess(response.data.body.token));
       Cookies.set("token", response.data.body.token, { expires: 1 });
-      navigate("/profile"); // Remplacer '/home' par la route souhaitée
+      navigate("/profile");
     } catch (error) {
       dispatch(loginFailure(error.response.data.message));
     }
