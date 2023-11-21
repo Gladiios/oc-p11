@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 const Header = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.token != null);
+  const username = useSelector((state) => state.auth.userProfile?.userName);
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -23,11 +24,13 @@ const Header = () => {
       <div className="header-item">
         <FontAwesomeIcon icon={faUserCircle} />
         {isLoggedIn ? (
-          // Affiche "Sign Out" si l'utilisateur est connecté
-          // Nom d'utilisateur ici
-          <NavLink to="/">
-            <p onClick={handleLogout}>Sign Out</p>
-          </NavLink>
+          // Utilisation d'un fragment pour envelopper les éléments adjacents
+          <>
+            <p>{username}</p>
+            <NavLink to="/">
+              <p onClick={handleLogout}>Sign Out</p>
+            </NavLink>
+          </>
         ) : (
           // Sinon, affiche "Sign In"
           <NavLink to="/sign-in">
@@ -38,5 +41,4 @@ const Header = () => {
     </header>
   );
 };
-
 export default Header;
