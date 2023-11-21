@@ -5,6 +5,10 @@ import { updateUsername } from "../actions/auth.actions";
 const UserContent = () => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.auth.userProfile);
+  const userFirstName = useSelector(
+    (state) => state.auth.userProfile.firstName
+  );
+  const userLastName = useSelector((state) => state.auth.userProfile.lastName);
   const [editMode, setEditMode] = useState(false);
   const [newUsername, setNewUsername] = useState(userProfile?.userName || "");
 
@@ -33,6 +37,8 @@ const UserContent = () => {
           </h1>
           {editMode ? (
             <form onSubmit={handleSubmit}>
+              <input type="text" value={userFirstName} />
+              <input type="text" value={userLastName} />
               <input
                 type="text"
                 value={newUsername}
