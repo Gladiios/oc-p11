@@ -3,9 +3,8 @@ import logo from "../img/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";
-import { logout } from "../actions/auth.actions";
+import { logoutUser } from "../actions/auth.actions";
 import { useSelector } from "react-redux";
-import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 
 const Header = () => {
@@ -13,8 +12,7 @@ const Header = () => {
   const isLoggedIn = useSelector((state) => state.auth.token != null);
 
   const handleLogout = () => {
-    Cookies.remove("token");
-    dispatch(logout());
+    dispatch(logoutUser());
   };
 
   return (
@@ -26,6 +24,7 @@ const Header = () => {
         <FontAwesomeIcon icon={faUserCircle} />
         {isLoggedIn ? (
           // Affiche "Sign Out" si l'utilisateur est connecté
+          // Nom d'utilisateur ici
           <NavLink to="/">
             <p onClick={handleLogout}>Sign Out</p>
           </NavLink>
