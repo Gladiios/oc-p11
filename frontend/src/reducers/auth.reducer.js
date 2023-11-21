@@ -1,5 +1,14 @@
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT,
+  USER_PROFILE,
+} from "../actions/auth.actions";
+
 const initialState = {
   token: null,
+  userProfile: null,
   isLoading: false,
   error: null,
 };
@@ -14,6 +23,8 @@ const authReducer = (state = initialState, action) => {
       return { ...state, isLoading: false, error: action.payload };
     case "LOGOUT":
       return { ...initialState };
+    case "USER_PROFILE":
+      return { ...state, isLoading: false, userProfile: action.payload };
     default:
       return state;
   }
