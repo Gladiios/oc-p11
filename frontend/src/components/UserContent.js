@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUsername } from "../actions/auth.actions";
 
 const UserContent = () => {
+  const dispatch = useDispatch();
+  const userProfile = useSelector((state) => state.auth.userProfile);
+  const [editMode, setEditMode] = useState(false);
+  const [newUsername, setNewUsername] = useState(userProfile?.userName || "");
+
+  const handleEditClick = () => {
+    setEditMode(true);
+  };
+
+  const handleCancel = () => {
+    setEditMode(false);
+    setNewUsername(userProfile?.userName || ""); // Si modification sans clic sur save, laisse l'ancien pseudo
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(updateUsername(newUsername));
+    setEditMode(false);
+  };
+
   return (
     <div>
       <main className="main bg-dark">
@@ -8,9 +30,27 @@ const UserContent = () => {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
           </h1>
-          <button className="edit-button">Edit Name</button>
+          {editMode ? (
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
+              />
+              <button type="submit">Save</button>
+              <button type="button" onClick={handleCancel}>
+                Cancel
+              </button>
+            </form>
+          ) : (
+            <>
+              <p>{userProfile?.userName}</p>
+              <button className="edit-button" onClick={handleEditClick}>
+                Edit Name
+              </button>
+            </>
+          )}
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">

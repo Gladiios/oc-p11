@@ -25,6 +25,12 @@ const authReducer = (state = initialState, action) => {
       return { ...initialState };
     case "USER_PROFILE":
       return { ...state, isLoading: false, userProfile: action.payload };
+    case "UPDATE_USER_NAME":
+      const updatedProfile = { ...state.userProfile, userName: action.payload };
+      return {
+        ...state,
+        userProfile: updatedProfile,
+      };
     default:
       return state;
   }

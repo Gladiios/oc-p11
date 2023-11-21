@@ -4,6 +4,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT = "LOGOUT";
 export const USER_PROFILE = "USER_PROFILE";
+export const UPDATE_USER_NAME = "UPDATE_USER_NAME";
 
 export const loginSuccess = (token) => {
   return { type: "LOGIN_SUCCESS", payload: token };
@@ -77,6 +78,34 @@ export const getUserProfile = () => {
       }
     } catch (error) {
       console.log("Error while getting user profile", error);
+    }
+  };
+};
+
+export const updateUsername = (userName) => {
+  return async (dispatch) => {
+    let loginToken = sessionStorage.getItem("token");
+    if (!loginToken) {
+      loginToken = localStorage.getItem("token");
+    }
+    try {
+      const updateUsernameResponse = await axios.put(
+        "http://localhost:3001/api/v1/user/profile",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${loginToken}`,
+          },
+        }
+      );
+      if (updateUsernameResponse.status === 200) {
+        dispatch({
+          type: UPDATE_USER_NAME,
+          payload: userName,
+        });
+      }
+    } catch (error) {
+      console.log("couldn't update username", error);
     }
   };
 };
