@@ -17,28 +17,39 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
+    <nav className="main-nav">
       <NavLink to="/">
-        <img className="logo" src={logo} alt="Argent Bank Logo" />
+        <a>
+          <img
+            className="main-nav-logo-image"
+            src={logo}
+            alt="Argent Bank Logo"
+          />
+          <h1 className="sr-only">Argent Bank</h1>
+        </a>
       </NavLink>
-      <div className="header-item">
-        <FontAwesomeIcon icon={faUserCircle} />
-        {isLoggedIn ? (
-          // Utilisation d'un fragment pour envelopper les éléments adjacents
-          <>
-            <p>{username}</p>
-            <NavLink to="/">
-              <p onClick={handleLogout}>Sign Out</p>
+      <div>
+        <a className="main-nav-item">
+          <FontAwesomeIcon icon={faUserCircle} className="sign-logo" />
+          {isLoggedIn ? (
+            // Utilisation d'un fragment pour envelopper les éléments adjacents
+            <>
+              <NavLink to="/profile">
+                <p className="username">{username}</p>
+              </NavLink>
+              <NavLink to="/">
+                <p onClick={handleLogout}>Sign Out</p>
+              </NavLink>
+            </>
+          ) : (
+            // Sinon, affiche "Sign In"
+            <NavLink to="/sign-in">
+              <p className="sign">Sign In</p>
             </NavLink>
-          </>
-        ) : (
-          // Sinon, affiche "Sign In"
-          <NavLink to="/sign-in">
-            <p>Sign In</p>
-          </NavLink>
-        )}
+          )}
+        </a>
       </div>
-    </header>
+    </nav>
   );
 };
 export default Header;

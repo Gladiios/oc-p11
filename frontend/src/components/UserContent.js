@@ -6,9 +6,9 @@ const UserContent = () => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.auth.userProfile);
   const userFirstName = useSelector(
-    (state) => state.auth.userProfile.firstName
+    (state) => state.auth.userProfile?.firstName
   );
-  const userLastName = useSelector((state) => state.auth.userProfile.lastName);
+  const userLastName = useSelector((state) => state.auth.userProfile?.lastName);
   const [editMode, setEditMode] = useState(false);
   const [newUsername, setNewUsername] = useState(userProfile?.userName || "");
 
@@ -23,6 +23,7 @@ const UserContent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setNewUsername(userProfile?.userName || "");
     dispatch(updateUsername(newUsername));
     setEditMode(false);
   };
@@ -34,24 +35,36 @@ const UserContent = () => {
           <h1>
             Welcome back
             <br />
+            <p>{userProfile?.userName} !</p>
           </h1>
           {editMode ? (
-            <form onSubmit={handleSubmit}>
-              <input type="text" value={userFirstName} />
-              <input type="text" value={userLastName} />
+            <form className="change-username-form" onSubmit={handleSubmit}>
+              <input
+                className="readonly"
+                type="text"
+                value={userFirstName}
+                readOnly
+              />
+              <input
+                className="readonly"
+                type="text"
+                value={userLastName}
+                readOnly
+              />
               <input
                 type="text"
                 value={newUsername}
                 onChange={(e) => setNewUsername(e.target.value)}
               />
-              <button type="submit">Save</button>
-              <button type="button" onClick={handleCancel}>
-                Cancel
-              </button>
+              <div>
+                <button type="submit">Save</button>
+                <button type="button" onClick={handleCancel}>
+                  Cancel
+                </button>
+              </div>
             </form>
           ) : (
             <>
-              <p>{userProfile?.userName}</p>
               <button className="edit-button" onClick={handleEditClick}>
                 Edit Name
               </button>

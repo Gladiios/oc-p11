@@ -75,6 +75,7 @@ export const getUserProfile = () => {
           type: USER_PROFILE,
           payload: userProfile,
         });
+        console.log(getUserProfileResponse);
       }
     } catch (error) {
       console.log("Error while getting user profile", error);
@@ -103,6 +104,7 @@ export const updateUsername = (userName) => {
           type: UPDATE_USER_NAME,
           payload: userName,
         });
+        console.log("profile succesfully updated");
       }
     } catch (error) {
       console.log("couldn't update username", error);
