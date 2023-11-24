@@ -23,7 +23,6 @@ const UserContent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setNewUsername(userProfile?.userName || "");
     dispatch(updateUsername(newUsername));
     setEditMode(false);
   };

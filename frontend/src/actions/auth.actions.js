@@ -92,7 +92,9 @@ export const updateUsername = (userName) => {
     try {
       const updateUsernameResponse = await axios.put(
         "http://localhost:3001/api/v1/user/profile",
-        {},
+        {
+          userName: userName,
+        },
         {
           headers: {
             Authorization: `Bearer ${loginToken}`,
