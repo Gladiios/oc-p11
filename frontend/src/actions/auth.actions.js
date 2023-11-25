@@ -75,6 +75,7 @@ export const getUserProfile = () => {
       );
       if (getUserProfileResponse.status === 200) {
         const userProfile = getUserProfileResponse.data.body;
+        localStorage.setItem("userProfile", JSON.stringify(userProfile));
         dispatch({
           type: USER_PROFILE,
           payload: userProfile,

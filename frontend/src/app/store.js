@@ -1,20 +1,24 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import rootReducer from "../reducers/index";
 
-const persistConfig = {
-  key: "root",
-  storage,
+// Fonction pour obtenir l'état initialisé à partir du storage
+const getPreloadedState = () => {
+  const token = localStorage.getItem("token");
+  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+  return {
+    auth: {
+      token: token || null,
+      userProfile: userProfile || null,
+      isLoading: false,
+      error: null,
+    },
+  };
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
+  preloadedState: getPreloadedState(),
   devTools: true,
 });
 
-const persistor = persistStore(store);
-
-export { store, persistor };
+export { store };

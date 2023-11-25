@@ -19,35 +19,31 @@ const Header = () => {
   return (
     <nav className="main-nav">
       <NavLink to="/">
-        <a>
-          <img
-            className="main-nav-logo-image"
-            src={logo}
-            alt="Argent Bank Logo"
-          />
-          <h1 className="sr-only">Argent Bank</h1>
-        </a>
+        <img
+          className="main-nav-logo-image"
+          src={logo}
+          alt="Argent Bank Logo"
+        />
+        <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
-      <div>
-        <a className="main-nav-item">
-          <FontAwesomeIcon icon={faUserCircle} className="sign-logo" />
-          {isLoggedIn ? (
-            // Utilisation d'un fragment pour envelopper les éléments adjacents
-            <>
-              <NavLink to="/profile">
-                <p className="username">{username}</p>
-              </NavLink>
-              <NavLink to="/">
-                <p onClick={handleLogout}>Sign Out</p>
-              </NavLink>
-            </>
-          ) : (
-            // Sinon, affiche "Sign In"
-            <NavLink to="/sign-in">
-              <p className="sign">Sign In</p>
+      <div className="main-nav-item">
+        <FontAwesomeIcon icon={faUserCircle} className="sign-logo" />
+        {isLoggedIn ? (
+          // Utilisation d'un fragment pour envelopper les éléments adjacents
+          <>
+            <NavLink to="/profile">
+              <p className="username">{username}</p>
             </NavLink>
-          )}
-        </a>
+            <NavLink to="/">
+              <p onClick={handleLogout}>Sign Out</p>
+            </NavLink>
+          </>
+        ) : (
+          // Sinon, affiche "Sign In"
+          <NavLink to="/sign-in">
+            <p className="sign">Sign In</p>
+          </NavLink>
+        )}
       </div>
     </nav>
   );
