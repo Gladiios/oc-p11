@@ -12,6 +12,7 @@ const UserContent = () => {
   const userLastName = useSelector((state) => state.auth.userProfile?.lastName);
   const [editMode, setEditMode] = useState(false);
   const [newUsername, setNewUsername] = useState(userProfile?.userName || "");
+  const [error, setError] = useState("");
 
   const accounts = [
     {
@@ -42,6 +43,11 @@ const UserContent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (newUsername.length > 16) {
+      setError("Username must be 16 characters or less.");
+      return;
+    }
+    setError("");
     dispatch(updateUsername(newUsername));
     setEditMode(false);
   };
@@ -77,6 +83,7 @@ const UserContent = () => {
                 value={newUsername}
                 onChange={(e) => setNewUsername(e.target.value)}
               />
+              {error && <div className="error-message">{error}</div>}
               <div>
                 <button type="submit">Save</button>
                 <button type="button" onClick={handleCancel}>

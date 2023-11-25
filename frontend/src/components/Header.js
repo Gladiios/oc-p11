@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../img/argentBankLogo.png";
+import logo from "../img/argentBankLogo.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useNavigate } from "react-router-dom";

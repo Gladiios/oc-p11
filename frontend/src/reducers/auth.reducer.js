@@ -18,13 +18,15 @@ const authReducer = (state = initialState, action) => {
     case "LOGIN_REQUEST":
       return { ...state, isLoading: true, error: null };
     case "LOGIN_SUCCESS":
-      return { ...state, isLoading: false, token: action.payload };
+      return { ...state, token: action.payload };
     case "LOGIN_FAILURE":
-      return { ...state, isLoading: false, error: action.payload };
+      return { ...state, error: action.payload };
+    case "CLEAR_AUTH_ERROR":
+      return { ...state, error: null };
     case "LOGOUT":
       return { ...initialState };
     case "USER_PROFILE":
-      return { ...state, isLoading: false, userProfile: action.payload };
+      return { ...state, userProfile: action.payload };
     case "UPDATE_USER_NAME":
       const updatedProfile = { ...state.userProfile, userName: action.payload };
       return {

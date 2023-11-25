@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../actions/auth.actions";
+import { clearAuthError, loginUser } from "../actions/auth.actions";
 
 const SignInContent = () => {
+  const errorMessage = useSelector((state) => state.auth.error);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -22,8 +23,16 @@ const SignInContent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(clearAuthError());
     dispatch(loginUser(email, password, navigate, rememberMe));
   };
+
+  // reinitialise le message d'erreur quand le composant et monté/démonté
+  useEffect(() => {
+    return () => {
+      dispatch(clearAuthError());
+    };
+  }, [dispatch]);
 
   return (
     <main className="main bg-dark">
@@ -49,6 +58,7 @@ const SignInContent = () => {
               onChange={handlePasswordChange}
             />
           </div>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
           <div className="input-remember">
             <input
               type="checkbox"

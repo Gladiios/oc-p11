@@ -14,6 +14,10 @@ export const loginFailure = (error) => {
   return { type: "LOGIN_FAILURE", payload: error };
 };
 
+export const clearAuthError = () => {
+  return { type: "CLEAR_AUTH_ERROR" };
+};
+
 // Gestion de la connexion utilisateur
 export const loginUser = (email, password, navigate, rememberMe) => {
   return async (dispatch) => {
@@ -75,7 +79,6 @@ export const getUserProfile = () => {
           type: USER_PROFILE,
           payload: userProfile,
         });
-        console.log(getUserProfileResponse);
       }
     } catch (error) {
       console.log("Error while getting user profile", error);
