@@ -14,24 +14,6 @@ const UserContent = () => {
   const [newUsername, setNewUsername] = useState(userProfile?.userName || "");
   const [error, setError] = useState("");
 
-  const accounts = [
-    {
-      title: "Argent Bank Checking (x8349)",
-      amount: "$2,082.79",
-      description: "Available Balance",
-    },
-    {
-      title: "Argent Bank Savings (x6712)",
-      amount: "$10,928.42",
-      description: "Available Balance",
-    },
-    {
-      title: "Argent Bank Credit Card (x8349)",
-      amount: "$184.30",
-      description: "Current Balance",
-    },
-  ];
-
   const handleEditClick = () => {
     setEditMode(true);
   };
@@ -43,6 +25,10 @@ const UserContent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (newUsername.trim() === "") {
+      setError("Username shouldn't be empty !");
+      return;
+    }
     if (newUsername.length > 16) {
       setError("Username must be 16 characters or less.");
       return;
@@ -54,61 +40,56 @@ const UserContent = () => {
 
   return (
     <div>
-      <main className="main bg-dark">
-        <div className="wb-name">
-          <h1>
-            Welcome back
-            <br />
-            <p>{userProfile?.userName} !</p>
-          </h1>
-          {editMode ? (
-            <form className="change-username-form" onSubmit={handleSubmit}>
-              <p>First Name</p>
-              <input
-                className="readonly"
-                type="text"
-                value={userFirstName}
-                disabled
-              />
-              <p>Last Name</p>
-              <input
-                className="readonly"
-                type="text"
-                value={userLastName}
-                disabled
-              />
-              <p>Username</p>
-              <input
-                type="text"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-              />
-              {error && <div className="error-message">{error}</div>}
-              <div>
-                <button type="submit">Save</button>
-                <button type="button" onClick={handleCancel}>
-                  Cancel
-                </button>
-              </div>
-            </form>
-          ) : (
-            <>
-              <button className="edit-button" onClick={handleEditClick}>
-                Edit Name
+      <div className="wb-name">
+        <h1>
+          Welcome back
+          <br />
+          <p>{userProfile?.userName} !</p>
+        </h1>
+        {editMode ? (
+          <form className="change-username-form" onSubmit={handleSubmit}>
+            <p>First Name</p>
+            <input
+              className="readonly"
+              type="text"
+              value={userFirstName}
+              disabled
+            />
+            <p>Last Name</p>
+            <input
+              className="readonly"
+              type="text"
+              value={userLastName}
+              disabled
+            />
+            <p>Username</p>
+            <input
+              type="text"
+              value={newUsername}
+              onChange={(e) => setNewUsername(e.target.value)}
+            />
+            {error && <div className="error-message">{error}</div>}
+            <div className="submit-form">
+              <button type="submit" className="save-btn">
+                Save
               </button>
-            </>
-          )}
-        </div>
-        <h2 className="sr-only">Accounts</h2>
-        {accounts.map((account, index) => (
-          <AccountSection
-            key={index}
-            title={account.title}
-            amount={account.amount}
-            description={account.description}
-          />
-        ))}
-      </main>
+              <button
+                type="button"
+                className="cancel-btn"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          <>
+            <button className="edit-button" onClick={handleEditClick}>
+              Edit Name
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };
