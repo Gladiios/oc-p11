@@ -29,7 +29,6 @@ const Header = () => {
       <div className="main-nav-item">
         <FontAwesomeIcon icon={faUserCircle} className="sign-logo" />
         {isLoggedIn ? (
-          // Utilisation d'un fragment pour envelopper les éléments adjacents
           <>
             <NavLink to="/profile">
               <p className="username">{username}</p>
@@ -39,7 +38,6 @@ const Header = () => {
             </NavLink>
           </>
         ) : (
-          // Sinon, affiche "Sign In"
           <NavLink to="/sign-in">
             <p className="sign">Sign In</p>
           </NavLink>
